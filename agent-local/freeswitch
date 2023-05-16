@@ -17,6 +17,7 @@ then
     CALLCOUNT=$($FSCLI -x "show calls count" | grep -Po '^\d+')
     CHANNELCOUNT=$($FSCLI -x "show channels count" | grep -Po '^\d+')
     GATEWAYS=$($FSCLI -x "sofia status gateway")
+    REGISTRATIONS=`$FSCLI -x 'sofia status profile internal' | grep REGISTRATIONS | awk '{ print $2 }'`
     if [[ $GATEWAYS =~ $inRe ]]; then
         INFAILED=${BASH_REMATCH[1]}
         INTOTAL=${BASH_REMATCH[2]}
@@ -40,6 +41,7 @@ then
     echo "InTotal=$INTOTAL"
     echo "OutFailed=$OUTFAILED"
     echo "OutTotal=$OUTTOTAL"
+    echo "Registrations=$REGISTRATIONS"
 
 else
    exit 0
